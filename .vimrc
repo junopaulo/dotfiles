@@ -1,32 +1,31 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-Plugin 'tpope/vim-surround'
-Plugin 'vim-airline/vim-airline'
-
-call vundle#end()
-
-
-set autoindent
-set ts=4
-filetype on
-
+" Vim config
 syntax on
-set ignorecase
-set smartcase
-set hlsearch
+set laststatus=2
+set encoding=utf-8
+set noshowmode
 set modelines=0
-set wildmenu
-set wildmode=longest:full
-set nu "line numbers
+set nu
 
-"for indenting
+" Indentation
+filetype indent plugin on 
+set ts=4
+set autoindent
 set expandtab
+set backspace=indent,eol,start
 set shiftwidth=4
-set tabstop=4
-set smarttab
+set softtabstop=4
 
-    
+
+call plug#begin(expand('~/.vim/plugged'))
+Plug 'tpope/vim-surround'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'dylanaraps/wal.vim'
+call plug#end()
+
+let g:airline_theme='minimalist'
+
+colorscheme wal
+
+
