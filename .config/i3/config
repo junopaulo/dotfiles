@@ -8,7 +8,6 @@
 # i3 config file (v4)
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
-
 set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -37,6 +36,7 @@ bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec dmenu_run
+
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -75,6 +75,11 @@ bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
+
+# Shortcuts
+
+# Lock screen
+bindsym $mod+Escape exec i3lock
 
 # focus the child container
 #bindsym $mod+d focus child
@@ -150,9 +155,14 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+# Resize gaps
+bindsym $mod+minus gaps inner current minus 6
+bindsym $mod+plus gaps inner current plus 6
+
+
 
 # Gaps
-gaps outer 4
+gaps outer 0
 gaps inner 12
 
 # No TitleBar
@@ -160,19 +170,19 @@ new_window pixel 3
 new_float pixel 3
 for_window [class="Firefox"] border pixel 0
 
-
-
 # Set colors from Xresources
 # Change 'color7' and 'color2' to whatever colors you want i3 to use 
 # from the generated scheme.
 # NOTE: The '#f0f0f0' in the lines below is the color i3 will use if
 # it fails to get colors from Xresources.
+
 set_from_resource $fg i3wm.color0 #f0f0f0
 set_from_resource $bg i3wm.color0 #f0f0f0
 set_from_resource $foc.border i3wm.color5 #f0f0f0
 set_from_resource $foc.bg i3wm.color5 #f0f0f0
-set_from_resource $foc.child.bg i3wm.color5 #f0f0f0
-#
+set_from_resource $foc.child.bg i3wm.color2 #f0f0f0
+
+
 # class                 border              backgr.             text        indicator       child_border
 client.focused          $foc.bg             $bg                 $fg         $bg             $foc.child.bg
 client.focused_inactive $bg                 $bg                 $fg         $bg             $bg
@@ -186,8 +196,8 @@ client.placeholder      $bg                 $bg                 $fg         $bg 
 # bindsym $mod+d exec dmenu_run -nb "$fg" -nf "$bg" -sb "$bg" -sf "$fg"
 #
 
-set_from_resource $foc.w.bg i3wm.color5 #f0f0f0
-set_from_resource $foc.w.b i3wm.color5 #f0f0f0
+set_from_resource $foc.w.bg i3wm.color2 #f0f0f0
+set_from_resource $foc.w.b i3wm.color2 #f0f0f0
 set_from_resource $a.w.bg i3wm.color0 #f0f0f0
 set_from_resource $a.w.b i3wm.color0 #f0f0f0
 set_from_resource $ia.w.bg i3wm.color0 #f0f0f0
@@ -195,25 +205,18 @@ set_from_resource $ia.w.b i3wm.color0 #f0f0f0
 set_from_resource $u.w.bg i3wm.color0 #f0f0f0
 set_from_resource $u.w.b i3wm.color0 #f0f0f0
 set_from_resource $w.fg i3wm.color7 #f0f0f0
-bar {
-    
-    position top
 
+bar {
+    position top
     colors {
         background $bg
-        
-            
         focused_workspace       $foc.w.b $foc.w.bg $fg 
         active_workspace        $a.w.b   $a.w.bg   $fg 
         inactive_workspace      $ia.w.b  $ia.w.bg  $w.fg
-        
-         
     }
-
-    
 }
   
 
-
 # Startup
 exec_always compton -f 
+exec --no-startup-id wal -R
